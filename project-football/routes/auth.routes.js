@@ -4,8 +4,8 @@ const User = require("../models/User.model")
 const saltRounds = 10
 
 // Signup
-router.get('/registro', (req, res, next) => res.render('auth/signup'))
-router.post('/registro', (req, res, next) => {
+router.get('/signup', (req, res, next) => res.render('auth/signup'))
+router.post('/signup', (req, res, next) => {
 
     let { email, userPwd, username, profileImg, description } = req.body
 
@@ -20,7 +20,7 @@ router.post('/registro', (req, res, next) => {
     bcrypt
         .genSalt(saltRounds)
         .then(salt => bcrypt.hash(userPwd, salt))
-        .then(hashedPassword => User.create({ email, username, profileImg, description, password: hashedPassword }))
+        .then(hashedPassword => User.create({ email, username, avatar, description, password: hashedPassword }))
         .then(createdUser => {
 
             res.redirect('/')
@@ -33,8 +33,8 @@ router.post('/registro', (req, res, next) => {
 
 
 // Login
-router.get('/iniciar-sesion', (req, res, next) => res.render('auth/login'))
-router.post('/iniciar-sesion', (req, res, next) => {
+router.get('/login', (req, res, next) => res.render('auth/login'))
+router.post('/login', (req, res, next) => {
 
     const { email, userPwd } = req.body
 
